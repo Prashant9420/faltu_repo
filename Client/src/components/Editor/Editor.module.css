@@ -1,0 +1,9 @@
+.container {
+  position: sticky;
+  top: 10rem;
+}
+.importButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

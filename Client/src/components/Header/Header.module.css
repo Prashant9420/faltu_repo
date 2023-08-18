@@ -1,0 +1,57 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: rgb(229, 237, 237);
+  height: 2.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .8rem;
+}
+.left {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.shareButton {
+  width: 5rem;
+  height: 2rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.accountImage,
+.logo {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  position: relative;
+}
+.lock {
+  height: 1rem;
+  cursor: pointer;
+}
+.profileMenu {
+  background-color: #4c4343;
+  color: white;
+  padding: 10px;
+  position: absolute;
+  top: 2.5rem;
+  right: 0.5rem;
+}
