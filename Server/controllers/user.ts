@@ -9,12 +9,14 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
+    console.log(req.body);
     const salt = await bcrypt.genSalt(10);
     const newUser = new User({
       email: req.body.email,
-      username: req.body.username,
+      name: req.body.name,
       password: await bcrypt.hash(req.body.password, salt),
     });
+    console.log(req.body);
     await newUser.save();
     res.status(200).send("User has been created");
   } catch (err) {
@@ -28,6 +30,7 @@ export const login = async (
   next: NextFunction
 ) => {
   try {
+    console.log(req.body);
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
     if (!user) {

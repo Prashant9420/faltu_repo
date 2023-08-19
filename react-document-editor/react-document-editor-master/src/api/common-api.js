@@ -1,8 +1,9 @@
 import axios from "axios";
 
 // export const baseURL = "http://localhost:2299"                          // Local
+export const baseURL = "http://localhost:8000"                          // Local
 // export const baseURL = 'http://100.104.216.52:9000/api/v1'
-export const baseURL = 'https://apimou.goes2nobel.com/api/v1'
+// export const baseURL = 'https://apimou.goes2nobel.com/api/v1'
 
 const api = axios.create({
     baseURL: baseURL,
@@ -15,7 +16,7 @@ const api = axios.create({
 
 export const authLogin = async (payload) => {
     try {
-        const data = await api.post('/login', payload)
+        const data = await api.post('/api/user/login', payload)
         return data
     } catch (error) {
         if(error.response) return error.response
@@ -25,7 +26,9 @@ export const authLogin = async (payload) => {
 
 export const authRegister = async (payload) => {
     try {
-        const data = await api.post('/register', payload)
+        console.log(payload)
+        const data = await api.post('api/user/register', payload)
+        console.log(data)
         return data
     } catch (error) {
         if(error.response) return error.response

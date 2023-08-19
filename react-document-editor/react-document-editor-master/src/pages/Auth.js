@@ -17,6 +17,7 @@ const Auth = () => {
                 {getRoutes()}
                 <Route path='*' element={<NotFoundContainer />} /> 
                 <Route path='/' element={<Navigate replace to='/auth/sign-in' />} />
+                <Route path='/auth/sign-up' element={<Navigate replace to='/auth/sign-up' />} />
             </Routes>
         </div>
     )

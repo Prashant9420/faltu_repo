@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import ErrorField from "../../component/ErrorField";
+import { authRegister } from "../../api/common-api";
 
-const Register = () => {
+const Register =  () => {
     const navigate = useNavigate()
 
     const {
@@ -11,14 +12,20 @@ const Register = () => {
         handleSubmit
     } = useForm({ criteriaMode: "all" });
 
-    const onValidForm = (payload) => {
+    const onValidForm = async (payload) => {
+        console.log(payload)
         const {password, confirm_password} = payload
         
         if(password !== confirm_password){
             alert('Password not match')
             return
         }
-        navigate('/auth/otp-validate', {replace: true})
+        const res = await authRegister(payload)
+        if(res.status===200){
+            alert("User created");
+            navigate('/auth/sign-in')
+        }
+        // navigate('/auth/otp-validate', {replace: true})
     }
 
     return (
@@ -36,34 +43,14 @@ const Register = () => {
                             <div className="py-8 leading-6 space-y-4 text-gray-700 text-sms sm:leading-7">
                                 <div className="relative">
                                     <input autoComplete="off" id="fullname" name="fullname" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Fullname" 
-                                        {...register("fullname_var", {
+                                        {...register("name", {
                                             required: "Fullname is required."
                                         })}
                                     />
                                     <ErrorField errors={errors} name="fullname" />
                                     <label htmlFor="fullname" className="absolute left-0 -top-3.5 text-gray-600 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">FullName</label>
                                 </div>
-                                <div className="relative">
-                                    <input autoComplete="off" id="phone_number" name="phone_number" type="tel" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Phone Number" 
-                                    {...register("phone_number", {
-                                            required: "Phone number is required.",
-                                            pattern: {
-                                                value: /^\d+$/,
-                                                message: "Phone number is number only."
-                                            },
-                                            minLength: {
-                                                value: 10,
-                                                message: "Phone number must exceed 9 characters."
-                                            },
-                                            maxLength: {
-                                                value: 14,
-                                                message: "Phone number invalid."
-                                            }
-                                        })}
-                                    />
-                                    <ErrorField errors={errors} name="phone_number" />
-                                    <label htmlFor="phone_number" className="absolute left-0 -top-3.5 text-gray-600 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Phone Number</label>
-                                </div>
+                                
                                 <div className="relative">
                                     <input autoComplete="off" id="email" name="email" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email address" 
                                         {...register("email", {

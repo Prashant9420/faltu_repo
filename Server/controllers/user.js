@@ -18,12 +18,14 @@ const token_1 = require("../middlewares/token");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.body);
         const salt = yield bcrypt_1.default.genSalt(10);
         const newUser = new User_1.default({
             email: req.body.email,
-            username: req.body.username,
+            name: req.body.name,
             password: yield bcrypt_1.default.hash(req.body.password, salt),
         });
+        console.log(req.body);
         yield newUser.save();
         res.status(200).send("User has been created");
     }
@@ -34,6 +36,7 @@ const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 exports.createUser = createUser;
 const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.body);
         const { email, password } = req.body;
         const user = yield User_1.default.findOne({ email: email });
         if (!user) {

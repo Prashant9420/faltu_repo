@@ -9,8 +9,8 @@ import ParameterConfig from "./container/admin/ParameterConfig"
 import DocumentUser from "./container/user/DocumentUser"
 import History from "./container/user/History"
 import DocumentDetail from "./container/admin/DocumentDetail"
-// import Register from "./container/auth/Register"
-// import OtpPage from "./container/auth/OtpPage"
+import Register from "./container/auth/Register"
+import OtpPage from "./container/auth/OtpPage"
 
 // export const RouteAdminRole = [
 //     {
@@ -193,12 +193,12 @@ export const AuthRoutes = [
         path: 'sign-in',
         component: <Login />
     },
-    // {
-    //     path: 'sign-up',
-    //     component: <Register />
-    // },
-    // {
-    //     path: 'otp-validate',
-    //     component: <OtpPage />
-    // },
+    {
+        path: 'sign-up',
+        component: <Register/>
+    },
+    {
+        path: 'otp-validate',
+        component: <OtpPage />
+    },
 ]

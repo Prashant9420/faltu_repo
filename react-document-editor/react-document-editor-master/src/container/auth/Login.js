@@ -8,7 +8,7 @@ import { authLogin } from "../../api/common-api";
 import ErrorField from "../../component/ErrorField";
 import Loader from "../../component/modal/Loader";
 import { setUserData } from "../../reduxs/action/actions";
-
+import { Link } from "react-router-dom";
 
 const Login = ({setUserData}) => {
     const [loader, showLoader] = useState(false)
@@ -27,14 +27,15 @@ const Login = ({setUserData}) => {
         const res = await authLogin(dataForm)
         console.log('Login :', res)
         if(res.data){
-            if(res.data.status === '00'){
+            console.log(res.data)
+            if(res.status === 200){
                 const dataUser = {...res.data.data}
-                delete dataUser.token
+                // delete dataUser.token
 
                 setUserData(dataUser)
-                localStorage.setItem('doc-user', JSON.stringify(dataUser))
-                localStorage.setItem('doc-token', res.data.data.token)
-                navigate('/dashboard', {replace: true})
+                // localStorage.setItem('doc-user', JSON.stringify(dataUser))
+                // localStorage.setItem('doc-token', res.data.data.token)
+                navigate('/', {replace: true})
             }else{
                 toast.error(res.data.message)
                 showLoader(false)
@@ -59,10 +60,10 @@ const Login = ({setUserData}) => {
                         <div className="divide-y divide-gray-200">
                             <div className="py-8 leading-6 space-y-4 text-gray-700 md:text-sm sm:leading-7">
                                 <div className="relative">
-                                    <input autoComplete="off" id="username" name="username" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 font-medium focus:outline-none focus:borer-rose-600" placeholder="Username" 
-                                    {...register("username", { required: "Username is required." })}/>
-                                    <ErrorField errors={errors} name="username" />
-                                    <label htmlFor="username" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Username</label>
+                                    <input autoComplete="off" id="email" name="email" type="email" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 font-medium focus:outline-none focus:borer-rose-600" placeholder="Email" 
+                                    {...register("email", { required: "Email is required." })}/>
+                                    <ErrorField errors={errors} name="email" />
+                                    <label htmlFor="email" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email</label>
                                 </div>
                                 <div className="relative">
                                     <input autoComplete="off" id="password" name="password" type="password" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 font-medium focus:outline-none focus:borer-rose-600" placeholder="Password" 
@@ -86,13 +87,13 @@ const Login = ({setUserData}) => {
                 </form>
             </div>
             <div className='flex flex-col items-center text-sm mt-7'>
-                {/* <div className='mb-3'>Don't have an account ? {' '}
+                <div className='mb-3'>Don't have an account ? {' '}
                     <span className='text-red-800 hover:text-red-600 font-medium'>
                         <Link to='/auth/sign-up'>
                             Sign Up
                         </Link>
                     </span>
-                </div> */}
+                </div>
                 <p>© {new Date().getFullYear()} CompanyName v1.0</p>
             </div>
 
